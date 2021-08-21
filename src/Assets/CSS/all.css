@@ -1,0 +1,19 @@
+@import url('./animations.css');
+@import url('./login.css');
+@import url('./fonts.css');
+body{
+  font-family: 'Jost', sans-serif !important;
+}
+.text-light{
+  font-family: 'Jost', sans-serif !important;
+  color: #F3F3F3;
+}
+.bg-dark{
+  background: rgba(0, 0, 0, 0.9);
+}
+.c_pointer{
+  cursor: pointer;
+}
+.button-animate{
+  animation: buttonAnimation 3s infinite;
+}

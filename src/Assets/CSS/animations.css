@@ -1,0 +1,144 @@
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+@keyframes dot1 {
+    0%{
+        top: 20vh;
+        left: 20vw;
+    }
+    25%{
+        top: 50vh;
+        left: 30vw;
+    }
+    50%{
+        top: 40vh;
+        left: 0vw;
+    }
+    75%{
+        top: 75vh;
+        left: 10vw;
+    }
+    100%{
+        top: 20vh;
+        left: 20vw;
+    }
+}
+@keyframes dot2 {
+    0%{
+        top: 40vh;
+        left: 40vw;
+    }
+    29%{
+        top: 20vh;
+        left: 10vw;
+    }
+    60%{
+        top: 70vh;
+        left: 70vw;
+    }
+    
+    81%{
+        top: 10vh;
+        left: 60vw;
+    }
+    100%{
+        top: 40vh;
+        left: 40vw;
+    }
+}
+
+@keyframes dot3 {
+    0%{
+        top: 60vh;
+        left: 60vw;
+    }
+    30%{
+        top: 10vh;
+        left: 40vw;
+    }
+    50%{
+        top: 50vh;
+        left: 20vw;
+    }
+    
+    65%{
+        top: 10vh;
+        left: 80vw;
+    }
+    100%{
+        top: 60vh;
+        left: 60vw;
+    }
+}
+
+
+@keyframes dot4 {
+    0%{
+        top: 70vh;
+        left: 70vw;
+    }
+    15%{
+        top: 15vh;
+        left: 50vw;
+    }
+    50%{
+        top: 30vh;
+        left: 10vw;
+    }
+    
+    90%{
+        top: 10vh;
+        left: 40vw;
+    }
+    100%{
+        top: 70vh;
+        left: 70vw;
+    }
+}
+
+@keyframes dot5 {
+    0%{
+        top: 85vh;
+        left: 85vw;
+    }
+    25%{
+        top: 35vh;
+        left: 100vw;
+    }
+    50%{
+        top: 70vh;
+        left: 60vw;
+    }
+    
+    75%{
+        top: 30vh;
+        left: 30vw;
+    }
+    100%{
+        top: 85vh;
+        left: 85vw;
+    }
+}
+
+@keyframes buttonAnimation {
+    0%{
+      background: rgba(0, 0, 0, 0.9);
+    }
+    50%{
+        background: rgba(10, 4, 34, 0.9);
+    }
+    75%{
+        
+    }
+    100%{
+        background: rgba(0, 0, 0, 0.9);
+    }
+}
