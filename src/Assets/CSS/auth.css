@@ -26,9 +26,10 @@
     font-family: 'Jost', sans-serif;
     font-weight: 500;
     font-size: 18px;
-    padding: 6px 15px;
+    padding: 4px 15px;
     box-sizing: border-box;
     background: #F3F3F3;
+    border: 2px solid #F3F3F3;
     border-radius: 5px;
     width: 300px;
     margin-bottom: 5px;
@@ -38,6 +39,9 @@
   }
   .form-row .form-input{
       width: 48%;
+  }
+  .form-input-error{
+      border-color: rgb(255, 19, 66);
   }
   .form-btn{
     width: 300px;

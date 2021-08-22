@@ -33,4 +33,46 @@
 .accept-terms{
     color: #F3F3F3;
     font-family: 'Jost', sans-serif !important;
+    border-radius: 5px;
+    padding-right: 10px;
+}
+.accept-terms-error{
+    color: crimson;
+}
+.password-warnings{
+    background-color: rgba(12, 12, 12, 0.99);
+    color: white;
+    position: absolute;
+    left: 50%;
+    width: 470px;
+    padding: 0px 30px;
+    box-sizing: border-box;
+    margin-left: -235px;
+    top: 50%;
+    margin-top: -179px;
+    display: none;
+}
+.password-warnings li{
+    margin: 5px 0px;
+}
+li.password-pass{
+    color: rgb(112, 221, 3);
+}
+li.password-fail{
+    color: rgb(255, 19, 66);
+}
+.password-warnings-show{
+    animation-name: showPasswordWarnings;
+    animation-duration: 0.4s;
+    animation-fill-mode: forwards;
+    opacity: 1;
+    display: block;
+}
+.password-warnings-hide{
+    opacity: 0;
+    display: none;
+    animation-name: hidePasswordWarnings;
+    animation-duration: 0.4s;
+    animation-fill-mode: forwards;
+    
 }

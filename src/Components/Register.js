@@ -1,5 +1,6 @@
 import { Checkbox, FormControlLabel, Typography } from '@material-ui/core'
-import React, { useRef, useState } from 'react'
+import axios from 'axios';
+import React, { useRef, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import '../Assets/CSS/Register.css'
 
@@ -17,6 +18,37 @@ export default function Register() {
     const [isButtonAnimation, setButtonAnimation] = useState(false)
     const [isRegisterButtonDisabled, setIsRegisterButtonDisabled] = useState(false)
 
+    const [alphabetTest, setAlphabetTest] = useState(false)
+    const [numberOfCharactersTest, setNumberOfCharactersTest] = useState(false)
+    const [numericTest, setNumericTest] = useState(false)
+    const [specialTest, setSpecialTest] = useState(false)
+
+
+    const [isTermsErrorClass, setTermsErrorClass] = useState(false)
+    const [confrimPasswordError, setConfrimPasswordError] = useState(false)
+    const [showPasswordWarnings, setShowPasswordWarnings] = useState(false)
+
+    useEffect(() => {
+        var alphabetReg = new RegExp("^(?=.*[a-z])(?=.*[A-Z])");
+        var numericReg = new RegExp("^(?=.*[0-9])");
+        var specialReg = new RegExp("^(?=.*[!@#$%^&*])");
+        var lengthReg = new RegExp("^(?=.{8,})");
+
+        alphabetReg.test(password) ? setAlphabetTest(true) : setAlphabetTest(false)
+        numericReg.test(password) ? setNumericTest(true) : setNumericTest(false)
+        specialReg.test(password) ? setSpecialTest(true) : setSpecialTest(false)
+        lengthReg.test(password) ? setNumberOfCharactersTest(true) : setNumberOfCharactersTest(false)
+
+    }, [password])
+
+    useEffect(() => {
+        password === passwordConfirm ? setConfrimPasswordError(false) : setConfrimPasswordError(true)
+    }, [passwordConfirm])
+
+    useEffect(() => {
+        isTermsAccepted ? setTermsErrorClass(false) : setTermsErrorClass(true)
+    }, [isTermsAccepted])
+
     function validateEmail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
@@ -31,13 +63,15 @@ export default function Register() {
             var emailError = !validateEmail(email)
             var userNameError = userName.length <= 4 ? true : false
             var isTermsAcceptedError = !isTermsAccepted;
+            var passwordError = password !== passwordConfirm || confrimPasswordError || password.length === 0 || validatePassword(password) === false
 
             setTimeout(() => {
                 resolve({
                     nameError: nameError,
                     emailError: emailError,
                     userNameError: userNameError,
-                    isTermsAcceptedError: isTermsAcceptedError
+                    isTermsAcceptedError: isTermsAcceptedError,
+                    passwordError: passwordError
                 });
             }, 300)
         })
@@ -47,11 +81,25 @@ export default function Register() {
         console.log(`Email: ${email}`)
         e.preventDefault()
         validateForm().then(errors => {
+            
             if(errors.nameError || errors.emailError || errors.userNameError || errors.isTermsAcceptedError){
                 console.clear()
                 console.error(errors)
                 setIsRegisterButtonDisabled(false)
+                if(errors.isTermsAcceptedError){
+                    console.log("Please accept terms")
+                    setTermsErrorClass(true)
+                }else{
+                    setTermsErrorClass(false)
+                }
             }else{
+                axios.post('http://localhost:8080/user/register', {name: name, email: email, username: userName, password: password})
+                    .then(res => {
+                        console.log(res)
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    })
                 setButtonAnimation(true);
                 console.log("Clicked")
                 setIsRegisterButtonDisabled(true)
@@ -110,23 +158,45 @@ export default function Register() {
                             placeholder="Password"
                             name="password"
                             spellCheck="false"
+                            onBlur={() => setShowPasswordWarnings(false)}
+                            onFocus={() => setShowPasswordWarnings(true)}
                         />
+                        <div className={`password-warnings ${showPasswordWarnings ? "password-warnings-show" : "password-warnings-hide"}`}>
+                            <ul>
+                                <li className={`${alphabetTest ? "password-pass" : "password-fail"}`}>
+                                    Uppercase and lowercase alphabetical characters.
+                                </li>
+                                <li className={`${numberOfCharactersTest ? "password-pass" : "password-fail"}`}>
+                                    Eight characters or longer
+                                </li>
+                                <li className={`${numericTest ? "password-pass" : "password-fail"}`}>
+                                    One numeric integer
+                                </li>
+                                <li className={`${specialTest ? "password-pass" : "password-fail"}`}>
+                                    One special character
+                                </li>
+                            </ul>
+                        </div>
                         <input type="password"
-                            className="form-input form-input-large"
+                            className={`form-input form-input-large ${confrimPasswordError ? "form-input-error" : ""}`}
                             value={passwordConfirm}
-                            onChange={(e) => setPasswordConfirm(e.target.value)}
+                            onChange={(e) => {
+                                setPasswordConfirm(e.target.value)
+                            }}
                             placeholder="Retype Password"
                             name="password_confirm"
                             spellCheck="false"
                         />
-                        <div className="accept-terms">
+                        <div className={`accept-terms ${isTermsErrorClass ? "accept-terms-error" : ""}`}>
                             <FormControlLabel
                                 control={
                                     <Checkbox checked={isTermsAccepted}
                                         color="primary"
                                         value={isTermsAccepted}
                                         onChange={
-                                            () => setTermsAccepted(!isTermsAccepted)
+                                            () => {
+                                                setTermsAccepted(!isTermsAccepted);
+                                            }
                                         }
                                         name="rememberMe"
                                     />

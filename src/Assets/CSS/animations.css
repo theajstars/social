@@ -132,3 +132,24 @@
         background: rgba(0, 0, 0, 0.9);
     }
 }
+@keyframes showPasswordWarnings{
+    0%{
+        opacity: 0;
+        display: none;
+    }
+    100%{
+        opacity: 1;
+        display: block;
+    }
+}
+
+@keyframes hidePasswordWarnings{
+    0%{
+        opacity: 1;
+        display: block;
+    }
+    100%{
+        opacity: 0;
+        display: none;
+    }
+}
