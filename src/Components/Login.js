@@ -1,18 +1,54 @@
 import { Typography, FormControlLabel, Checkbox } from '@material-ui/core'
+import axios from 'axios'
 import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 function Login() {
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
-    const [isRemember, setRemember] = useState(false)
+    const [isRemember, setRemember] = useState(true)
     const [isButtonAnimation, setButtonAnimation] = useState(false)
 
+    const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(false)
     const loginButtonRef = useRef();
 
+    function validateForm(){
+        return new Promise((resolve, reject) => {
+            var userError = userName.length <= 4 ? true : false;
+            var passwordError = password.length <= 6 ? true : false;
+
+            setTimeout(() => {
+                resolve({
+                    userError: userError,
+                    passwordError: passwordError
+                });
+            }, 300)
+            
+        })
+    }
     function loginUser(e){
-        setButtonAnimation(true)
-        loginButtonRef.current.innerHTML = 'Signing in.. <i class="fal fa-spinner fa-spin"></i>';
+        e.preventDefault()
+        validateForm().then(errors => {
+            if(errors.userError || errors.passwordError){
+                console.clear()
+                console.error(errors)
+                setIsLoginButtonDisabled(false)
+            }else{
+                setButtonAnimation(true)
+                setIsLoginButtonDisabled(true)
+                loginButtonRef.current.innerHTML = 'Signing in.. <i class="fal fa-spinner fa-spin"></i>';
+                axios.post("http://localhost:8080/login", {username: userName, password: password})
+                .then(res => {
+                    console.clear();
+                    console.log(res.data)
+                })
+                .catch(errr => {
+                    console.clear();
+
+                    console.error(errr)
+                })
+            }
+        })
     }
     return (
         <div className="login-container">
@@ -36,6 +72,7 @@ function Login() {
                             value={userName}
                             onChange={(e) => setUserName(e.target.value)}
                             placeholder="Username"
+                            spellCheck="false"
                             name="username"
                         />
                         <br />
@@ -45,30 +82,34 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Password"
                             name="password"
+                            spellCheck="false"
                         />
                         <div className="remember-me">
                             <FormControlLabel
                                 control={
                                     <Checkbox checked={isRemember}
+                                        color="primary"
+                                        value={isRemember}
                                         onChange={
                                             () => setRemember(!isRemember)
                                         }
-                                        name="checkedA"
+                                        name="rememberMe"
                                     />
                                     }
                             />
                             Remember me
                         </div>
-                        <span
-                            className={`bg-dark text-light login-btn c_pointer ${isButtonAnimation ? "button-animate" : ""}`}
+                        <button
+                            className={`bg-dark text-light form-btn c_pointer ${isButtonAnimation ? "button-animate" : ""}`}
                             ref={loginButtonRef}
                             onClick={(e) => loginUser(e)}
+                            disabled={isLoginButtonDisabled}
                         >
                             Continue
-                        </span>
+                        </button>
                         <div className="new-here text-light">
                             <span>
-                                New here?
+                                Don't have an account?
                             </span>
                             <Link to="/register" className="text-light">
                                 Register

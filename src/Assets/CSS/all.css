@@ -1,6 +1,7 @@
 @import url('./animations.css');
 @import url('./login.css');
 @import url('./fonts.css');
+@import url('./auth.css');
 body{
   font-family: 'Jost', sans-serif !important;
 }
@@ -13,7 +14,4 @@ body{
 }
 .c_pointer{
   cursor: pointer;
-}
-.button-animate{
-  animation: buttonAnimation 3s infinite;
 }

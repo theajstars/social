@@ -2,19 +2,7 @@ body{
     overflow: hidden;
 }
 
-.bg-dot{
-    position: absolute;
-    background-color: red;
-    display: flex;
-    padding: 65px;
-    box-sizing: border-box;
-    border-radius: 50%;
-    overflow: hidden;
-    transition: 0.2s;
-}
-.bo-dots{
-    max-height: 100px;
-}
+
 .bg-dot-1{
     animation: dot1 30s ease infinite;
     background-color: rgba(0, 0, 0, 0.1);
@@ -47,12 +35,7 @@ body{
 }
 
 /* Login Content */
-.login-container{
-    background: linear-gradient(180deg, #070C36 0%, #1F1D5E 100%);
-    background-size: 400% 400%;
-    height: 100vh;
-    box-sizing: border-box;
-}
+
 .login-content-container{
     position: absolute;
     width: 400px;
@@ -82,18 +65,7 @@ body{
     box-sizing: border-box;
     padding-top: 10px;
 }
-.form-input{
-    border: none;
-    outline: none;
-    font-family: 'Jost', sans-serif;
-    font-weight: 500;
-    font-size: 18px;
-    padding: 6px 15px;
-    box-sizing: border-box;
-    background: #F3F3F3;
-    border-radius: 5px;
-    width: 300px;
-}
+
 .form-input::placeholder{
     color: #3C3B3B;
 }
@@ -105,24 +77,4 @@ body{
     font-family: 'Jost', sans-serif !important;
 
 }
-.login-btn{
-    width: 300px;
-    border-radius: 5px;
-    text-align: center;
-    padding: 6px 15px;
-    box-sizing: border-box;
-    transition: 0.2s;
-}
-.login-btn:hover{
-    opacity: 0.8;
-}
-.new-here{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    box-sizing: border-box;
-}
-.new-here a{
-    text-decoration: underline;
-}
+
