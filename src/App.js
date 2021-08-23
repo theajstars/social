@@ -6,6 +6,10 @@ import Dashboard from './Components/Dashboard'
 import Login from './Components/Login'
 import Register from './Components/Register'
 
+export function logoutUser(){
+  Cookies.remove("ud")
+  window.location.href = '/login'
+}
 
 export default function App() {
   const [url, setUrl] = useState(new URL(window.location.href))
@@ -14,7 +18,7 @@ export default function App() {
   })
   const [token, setToken] = useState(Cookies.get("ud"));
   if(token){
-    return <Redirect to="/dashboard" />
+    // return <Redirect to="/dashboard" />
   }
   else{
     return <Redirect to={url.pathname === '/login' ? "/login" : "/register"} />

@@ -1,5 +1,8 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
+import '../Assets/CSS/Dashboard.css'
+
+import Sidebar from './Sidebar'
 
 function Dashboard() {
     useEffect(() => {
@@ -12,8 +15,8 @@ function Dashboard() {
             })
     }, [])
     return (
-        <div>
-            <h2>The Dashboard</h2>
+        <div className="dashboard-container">
+            <Sidebar/>
         </div>
     )
 }
