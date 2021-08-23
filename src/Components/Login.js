@@ -1,9 +1,11 @@
 import { Typography, FormControlLabel, Checkbox } from '@material-ui/core'
 import axios from 'axios'
-import React, { useState, useEffect, useRef } from 'react'
+import Cookies from 'js-cookie'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 function Login() {
+
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
     const [isRemember, setRemember] = useState(true)
@@ -37,10 +39,14 @@ function Login() {
                 setButtonAnimation(true)
                 setIsLoginButtonDisabled(true)
                 loginButtonRef.current.innerHTML = 'Signing in.. <i class="fal fa-spinner fa-spin"></i>';
-                axios.post("http://localhost:8080/login", {username: userName, password: password})
+                axios.post("http://localhost:8080/user/login", {username: userName, password: password})
                 .then(res => {
                     console.clear();
                     console.log(res.data)
+                    if(res.data.status === true){
+                        Cookies.set("ud", res.data.token)
+                        window.location.href = '/dashboard'
+                    }
                 })
                 .catch(errr => {
                     console.clear();

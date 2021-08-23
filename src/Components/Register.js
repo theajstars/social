@@ -1,13 +1,15 @@
 import { Checkbox, FormControlLabel, Typography } from '@material-ui/core'
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import React, { useRef, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import '../Assets/CSS/Register.css'
 
 
+
 export default function Register() {
     const registerButtonRef = useRef();
-    
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [userName, setUserName] = useState('');
@@ -95,7 +97,9 @@ export default function Register() {
             }else{
                 axios.post('http://localhost:8080/user/register', {name: name, email: email, username: userName, password: password})
                     .then(res => {
-                        console.log(res)
+                        console.log(res.data)
+                        Cookies.set("ud", res.data);
+                        window.location.href="/dashboard"
                     })
                     .catch(err => {
                         console.error(err);
@@ -103,7 +107,7 @@ export default function Register() {
                 setButtonAnimation(true);
                 console.log("Clicked")
                 setIsRegisterButtonDisabled(true)
-                registerButtonRef.current.innerHTML = "Registering user!"
+                registerButtonRef.current.innerHTML = 'Registering user... <i class="fal fa-spinner fa-spin"></i'
             }
         })
         
