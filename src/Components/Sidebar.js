@@ -11,25 +11,28 @@ function Sidebar() {
                 <div className="sidebar">
                     <div className="sidebar-links">
                         <Link to="/dashboard" className="sidebar-icon sidebar-link">
-                            <i className="fal fa-newspaper"></i>
+                            <i className="fal fa-newspaper"></i>&nbsp; &nbsp;Feed 
+                        </Link>
+                        <Link to="/chats" className="sidebar-icon sidebar-link">
+                            <i className="fal fa-comment-alt-lines"></i>&nbsp; &nbsp;Chats
                         </Link>
                         <Link to="/dashboard" className="sidebar-icon sidebar-link">
-                            <i className="fal fa-comment-alt-lines"></i>
+                            <i className="fal fa-poll"></i>&nbsp; &nbsp;Discover 
                         </Link>
                         <Link to="/dashboard" className="sidebar-icon sidebar-link">
-                            <i className="fal fa-poll"></i>
+                            <i className="fal fa-bell"></i>&nbsp; &nbsp;Notifications 
                         </Link>
                         <Link to="/dashboard" className="sidebar-icon sidebar-link">
-                            <i className="fal fa-bookmark"></i>
+                            <i className="fal fa-bookmark"></i>&nbsp; &nbsp;Saved Items 
                         </Link>
                     </div>
-                    <Link to="/dashboard" className="sidebar-icon sidebar-link sidebar-settings-icon">
+                    <Link to="/dashboard" className="sidebar-link sidebar-settings-icon">
                         <i className="fal fa-cog"></i>
                     </Link>
                 </div>
             </div>
             <div className="sidebar-right">
-                <span className="sidebar-icon user-icon"
+                <span className="user-icon"
                     onClick={() => {
                         setUserActionsVisibility(!isUserActionsVisible)
                     }}
@@ -46,7 +49,7 @@ function Sidebar() {
                     <Link to="/sdashboard" className="user-link">
                         Contact developer
                     </Link>
-                    <Link to="/dashboard" className="user-link"
+                    <Link to="/" className="user-link"
                         onClick={() => logoutUser()}
                     >
                         Logout

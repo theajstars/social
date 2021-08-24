@@ -5,6 +5,12 @@ import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Link } from 'react-router-dom'
 
 function Login() {
+    useEffect(() => {
+        var token = Cookies.get("ud")
+        if(token !== undefined){
+            window.location.href =  "/dashboard"
+        }
+    }, [])
 
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')

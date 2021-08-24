@@ -1,7 +1,7 @@
 
 .sidebar-container{
-    width: 100px;
-    padding: 30px 10px;
+    width: 250px;
+    padding: 30px 10px 30px 20px;
     box-sizing: border-box;
     position: fixed;
     height: 100vh;
@@ -11,30 +11,31 @@
 .sidebar{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     height: 100%;
+    box-sizing: border-box;
 }
 .sidebar-links{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 .sidebar-icon{
-    font-size: 26px;
+    font-size: 21px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    justify-content: flex-start;
+    width: 180px;
+    text-align: left;
+    border-radius: 15px;
     transition: 0.1s;
+    padding: 5px 15px;
 }
 .sidebar-link{
-    margin: 32px 0px;
+    margin: 20px 0px;
     color: #D9CACA;
-
 }
 .sidebar-link:hover{
     background-color: rgba(0, 0, 0, 0.4);
@@ -47,7 +48,16 @@
 }
 .sidebar-settings-icon{
     margin: 0px;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
 }
+
+/* Right Side */
 
 .sidebar-right{
     position: fixed;
@@ -63,29 +73,36 @@
     background: #EAEAEA;
     cursor: pointer;
     transition: 0.12s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
 }
 .user-icon:hover{
     background: #b6b2b2;
 }
 .sidebar-right-content{
-    background: rgba(5, 5, 5, 0.32);
+    background: #0A092E;
+    /* background: rgba(5, 5, 5, 0.32); */
     display: flex;
     flex-direction: column;
     margin-top: 15px;
+    width: 200px;
 }
 .sidebar-right-content-hide{
     display: none;
 }
 .user-link{
-    padding: 5px;
+    padding: 5px 10px;
     box-sizing: border-box;
     margin: 10px 20px;
     border-radius: 4px;
-    width: 150px;
+    width: 100%px;
     color: #D9CACA;
     transition: 0.12s;
 }
 .user-link:hover{
-    background: rgba(62, 59, 59, 0.39);
-
+    background: rgba(39, 4, 255, 0.14);
 }

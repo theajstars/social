@@ -8,6 +8,12 @@ import '../Assets/CSS/Register.css'
 
 
 export default function Register() {
+    useEffect(() => {
+        var token = Cookies.get("ud")
+        if(token !== undefined){
+            window.location.href =  "/dashboard"
+        }
+    }, [])
     const registerButtonRef = useRef();
 
     const [name, setName] = useState('');

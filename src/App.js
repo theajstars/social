@@ -13,9 +13,6 @@ export function logoutUser(){
 
 export default function App() {
   const [url, setUrl] = useState(new URL(window.location.href))
-  useEffect(() => {
-    console.log(url.pathname)
-  })
   const [token, setToken] = useState(Cookies.get("ud"));
   if(token){
     // return <Redirect to="/dashboard" />
@@ -25,8 +22,6 @@ export default function App() {
   }
   return (
     <div>
-        {/* <Login/> */}
-        {/* <Register/> */}
     </div>
   )
 }
