@@ -11,7 +11,7 @@ export default function Register() {
     useEffect(() => {
         var token = Cookies.get("ud")
         if(token !== undefined){
-            window.location.href =  "/dashboard"
+            window.location.href =  "/chats"
         }
     }, [])
     const registerButtonRef = useRef();
@@ -105,7 +105,7 @@ export default function Register() {
                     .then(res => {
                         console.log(res.data)
                         Cookies.set("ud", res.data);
-                        window.location.href="/dashboard"
+                        window.location.href="/chats"
                     })
                     .catch(err => {
                         console.error(err);

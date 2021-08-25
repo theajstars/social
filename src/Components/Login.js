@@ -51,7 +51,7 @@ function Login() {
                     console.log(res.data)
                     if(res.data.status === true){
                         Cookies.set("ud", res.data.token)
-                        window.location.href = '/dashboard'
+                        window.location.href = '/chats'
                     }
                 })
                 .catch(errr => {

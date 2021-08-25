@@ -25,7 +25,14 @@ function Chats() {
             })
     }, [])
     useEffect(() => {
-        console.log(chatSearch)
+        if(chatSearch.length > 0){
+            axios.post('http://localhost:8080/users/find', {string: chatSearch})
+            .then(res => {
+                console.clear()
+                console.log(res)
+            })
+        }
+        
     }, [chatSearch])
     return (
         <div className="dashboard-container">
@@ -46,6 +53,7 @@ function Chats() {
                                 />
                             </center>
                         </div>
+                        
                         <div className={`contacts-list`}>
                             <div className="contact"
                                 onClick={() => {renderChat()}}
