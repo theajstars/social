@@ -2,17 +2,21 @@
   .bg-dot{
     position: absolute;
     display: flex;
-    padding: 65px;
+    padding: 30px;
     box-sizing: border-box;
     border-radius: 50%;
     overflow: hidden;
     transition: 0.2s;
   }
   .login-container, .register-container{
-    background: linear-gradient(180deg, #070C36 0%, #1F1D5E 100%);
-    background-size: 400% 400%;
-    height: 100vh;
+    /* background: linear-gradient(180deg, #070C36 0%, #1F1D5E 100%);
+    background-size: 400% 400%; */
+    height: 100vh !important;
+    max-height: 100vh !important;
     box-sizing: border-box;
+    overflow: hidden !important;
+    margin: 0px;
+    width: 100%;
   }
   .form-row{
       display: flex;

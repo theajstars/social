@@ -8,7 +8,7 @@ function Login() {
     useEffect(() => {
         var token = Cookies.get("ud")
         if(token !== undefined){
-            window.location.href =  "/dashboard"
+            window.location.href =  "/chats"
         }
     }, [])
 

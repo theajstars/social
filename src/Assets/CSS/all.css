@@ -4,6 +4,8 @@
 @import url('./auth.css');
 body{
   font-family: 'Jost', sans-serif !important;
+  background: linear-gradient(180deg, #070C36 0%, #1F1D5E 100%);
+  background-size: 400% 400%;
 }
 .text-light{
   font-family: 'Jost', sans-serif !important;

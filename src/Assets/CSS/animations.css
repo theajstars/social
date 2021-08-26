@@ -13,7 +13,7 @@
         left: 0vw;
     }
     75%{
-        top: 75vh;
+        top: 60vh;
         left: 10vw;
     }
     100%{
@@ -31,13 +31,13 @@
         left: 10vw;
     }
     60%{
-        top: 70vh;
-        left: 70vw;
+        top: 60vh;
+        left: 40vw;
     }
     
     81%{
         top: 10vh;
-        left: 60vw;
+        left: 50vw;
     }
     100%{
         top: 40vh;
@@ -47,8 +47,8 @@
 
 @keyframes dot3 {
     0%{
-        top: 60vh;
-        left: 60vw;
+        top: 40vh;
+        left: 40vw;
     }
     30%{
         top: 10vh;
@@ -61,19 +61,19 @@
     
     65%{
         top: 10vh;
-        left: 80vw;
+        left: 60vw;
     }
     100%{
-        top: 60vh;
-        left: 60vw;
+        top: 40vh;
+        left: 40vw;
     }
 }
 
 
 @keyframes dot4 {
     0%{
-        top: 70vh;
-        left: 70vw;
+        top: 65vh;
+        left: 65vw;
     }
     15%{
         top: 15vh;
@@ -89,15 +89,15 @@
         left: 40vw;
     }
     100%{
-        top: 70vh;
-        left: 70vw;
+        top: 65vh;
+        left: 65vw;
     }
 }
 
 @keyframes dot5 {
     0%{
-        top: 85vh;
-        left: 85vw;
+        top: 35vh;
+        left: 35vw;
     }
     25%{
         top: 35vh;
@@ -113,8 +113,8 @@
         left: 30vw;
     }
     100%{
-        top: 85vh;
-        left: 85vw;
+        top: 35vh;
+        left: 35vw;
     }
 }
 

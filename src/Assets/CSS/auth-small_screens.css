@@ -1,0 +1,87 @@
+@media screen and (max-width: 700px) {
+    div.bg-dots{
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    div.register-content{
+        width: 500px;
+        height: 500px;
+    }
+    div.register-content-container{
+        margin-left: -250px;
+        margin-top: -250px;
+        width: 500px;
+        height: 500px;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    div.form-row{
+        flex-direction: column;
+    }
+    div.form-row input.form-input{
+        width: 100%;
+        margin: 10px 0px;
+    }
+     div.register-content, form#register-form{
+        width: 400px;
+        height: 500px;
+    }
+    div.register-content-container{
+        margin-left: -200px;
+        margin-top: -250px;
+        width: 400px;
+        height: 500px;
+    }
+}
+
+
+@media screen and (max-width: 450px) {
+    div.login-content, div.login-content-container{
+        width: 380px;
+        height: 450px;
+    }
+    div.login-content-container{
+        margin-left: -190px;
+    }
+}
+
+
+@media screen and (max-width: 420px) {
+    div.register-content, form#register-form{
+        width: 364px;
+        height: 500px;
+    }
+    div.register-content-container{
+        margin-left: -182px;
+        margin-top: -250px;
+        width: 364px;
+        height: 500px;
+    }
+}
+
+
+@media screen and (max-width: 400px) {
+    div.login-content-container{
+        width: 350px;
+        height: 350px;
+    }
+    div.login-content{
+        width: 350px;
+        height: 350px;
+        position: absolute;
+        left: 50%;
+        margin-left: -175px;
+        margin-top: -175px;
+        top: 50%;
+    }
+    div.login-content-container{
+        margin-left: -175px;
+    }
+}
+
+

@@ -85,8 +85,6 @@ export default function Register() {
         })
     }
     function registerUser(e){
-        console.log(validatePassword(password))
-        console.log(`Email: ${email}`)
         e.preventDefault()
         validateForm().then(errors => {
             
