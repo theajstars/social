@@ -1,0 +1,47 @@
+@media screen and (max-width: 1000px) {
+    div.edit-profile-row{
+        flex-direction: column;
+    }
+    div.profile-left{
+        width: 50vw;
+    }
+}
+@media screen and (max-width: 600px) {
+
+    div.profile-right form{
+        width: 300px;
+    }
+    input.edit-profile-text, button.update-btn, div.edit-profile-element, div.edit-profile-row{
+        width: 270px;
+    }
+    div.profile-left{
+        width: 40vw;
+    }
+    div.profile-right{
+        padding: 20px;
+    }
+}
+@media screen and (max-width: 550px) {
+    div.profile-main{
+        flex-direction: column;
+    }
+    div.profile-left{
+        height: 40vh;
+        width: 100vw;
+    }
+    img.profile-avatar{
+        width: 120px;
+        height: 120px;
+    }
+    div.profile-right, div.profile-right form{
+        width: 100vw;
+        height: 60vh;
+        align-items: center;
+    }
+    div.edit-profile-element{
+        margin: 5px 0px;
+    }
+    div.profile-right{
+        padding: 20px 0px;
+    }
+}

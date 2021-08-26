@@ -1,4 +1,6 @@
 @import url('./avatar-display.css');
+@import url('./profile-small_screens.css');
+
 .profile-main{
     display: flex;
     flex-direction: row;
@@ -75,6 +77,9 @@
     outline: none;
     font-size: 19px;
     font-family: 'Jost', sans-serif;
+}
+.update-btn{
+    width: 340px;
 }
 .bg-overlay-show{
     display: block;

@@ -202,7 +202,7 @@ export default function Profile() {
                             </div>
                         </div>
                         <button type="submit"
-                            className="c_pointer bg-dark text-light form-btn"
+                            className="c_pointer bg-dark text-light form-btn update-btn"
                             // disabled={true}
                         >
                             Save changes
