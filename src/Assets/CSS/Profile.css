@@ -1,3 +1,4 @@
+@import url('./avatar-display.css');
 .profile-main{
     display: flex;
     flex-direction: row;
@@ -24,7 +25,9 @@
     cursor: pointer;
 }
 
-
+.profile-avatar:hover{
+    opacity: 0.5;
+}
 
 .profile-name{
     color: #FCFCFC;

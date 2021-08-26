@@ -1,0 +1,37 @@
+.avatar-display-show{
+    position: absolute;
+    background: #16093A;
+    border-radius: 30px;
+    width: 600px;
+    height: 600px;
+    padding: 30px;
+    box-sizing: border-box;
+    top: 50%;
+    left: 50%;
+    margin-left: -300px;
+    margin-top: -300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    backdrop-filter: blur(100px);
+    box-shadow: 0px 0px 5050px 1102px rgba(0, 0, 0, 0.7);
+}
+.avatar-display-hide{
+    display: none;
+}
+.avatar-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.avatar-option{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.avatar-option:hover{
+    transform: scale(1.15);
+    opacity: 0.7;
+}
