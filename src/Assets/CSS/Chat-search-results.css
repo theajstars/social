@@ -1,0 +1,73 @@
+@keyframes show-search-results {
+    0%{
+        left: -30vw;
+    }
+    100%{
+        left: 0;
+    }
+}
+@keyframes hide-search-results {
+    0%{
+        left: 0;
+    }
+    100%{
+        left: -30vw;
+    }
+}
+.search-people{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: #0E0F35;
+    height: 100vh;
+    padding: 20px 0px;
+    box-sizing: border-box;
+    width: 30vw;
+    margin-top: 14px;
+}
+.search-people-show{
+    /* left: 0; */
+    animation-name: show-search-results;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
+}
+.search-people-hide{
+    /* left: -30vw; */
+    animation-name: hide-search-results;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
+}
+.search-result{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+    background: rgba(9, 9, 9, 0.2);
+}
+.search-result:hover{
+    background-color: #050926;
+}
+.search-result-avatar{
+    width: 60px;
+    border-radius: 50%;
+}
+.search-result-details{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    justify-content: center;
+}
+.search-result-name{
+    font-size: 19px;
+    color: #fcfcfc;
+}
+.search-result-username{
+    font-size: 15px;
+    color: rgba(207, 207, 207, 0.8);
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}

@@ -1,9 +1,13 @@
-.render-chat{
-    width: -webkit-fill-available;
+.render-chat-show{
+    width: 70vw;
     background: rgba(5, 5, 5, 0.32);
     height: 100vh;
     box-sizing: border-box;
     padding: 20px;
+    display: block;
+}
+.render-chat-hide{
+    display: none;
 }
 .current-contact-name{
     font-weight: 500;
@@ -22,7 +26,18 @@
     width: 100%;
     box-sizing: border-box;
     padding: 15px 0px;
+    height: 80vh;
+    overflow-y: scroll;
 }
+.chats-area::-webkit-scrollbar {
+    width: 10px;
+}
+.chats-area::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.chats-area::-webkit-scrollbar-thumb {
+    background: #888;
+  }
 .chat-container{
     width: 100%;
     display: flex;
@@ -51,6 +66,7 @@
     background: #EEEEEE;
     color: #1E1F6F;
     font-weight: 500;
+    margin-right: 30px;
 }
 p.chat-content{
     font-size: 16px;
