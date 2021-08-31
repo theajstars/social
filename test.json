@@ -1,0 +1,19 @@
+{
+    "messages": [
+        {
+            "id": 12980182,
+            "messages": [
+                {
+                    "type": "sent",
+                    "body": "Hello how are youse?",
+                    "timestamp": "Date.now()"
+                },
+                {
+                    "type": "received",
+                    "body": "I am fine thank you!",
+                    "timestamp": "Date.now()"
+                }
+            ]
+        }
+    ]
+}

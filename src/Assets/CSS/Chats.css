@@ -1,5 +1,7 @@
 @import url('./Chat-area.css');
 @import url('./Chat-search-results.css');
+@import url('./chat-small-screens.css');
+@import url('./chat-animations.css');
 body{
     max-height: 100vh !important;
     overflow: hidden;
@@ -9,11 +11,24 @@ body{
     flex-direction: row;
 }
 .contacts{
-    background: rgba(0, 0, 0, 0.32);
+    position: absolute;
+    left: -30vw;
+    /* background: rgba(0, 0, 0, 0.32); */
+    background: #0b0f3c;
     height: 100vh;
     padding: 20px 0px;
     box-sizing: border-box;
     width: 30vw;
+}
+.contacts-show{
+    animation-name: showContacts;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
+}
+.contacts-hide{
+    animation-name: hideContacts;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
 }
 .search{
     background: #EEEEEE;

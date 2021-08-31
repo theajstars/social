@@ -28,7 +28,7 @@ function Chats() {
         var minutes = d.getMinutes()
 
         if(hours < 10){
-            hours = `0{${hours}}`
+            hours = `0${hours}`
         }
         if(minutes < 10){
             minutes = `0${minutes}`;
@@ -37,6 +37,35 @@ function Chats() {
         return `${hours}:${minutes}`;
     }
     
+    function activatesearchResult(searchResult){
+        console.clear();
+        console.log(searchResult)
+        console.log(messages);
+        var messageFound = false
+        var current = {}
+        messages.map(message => {
+            if(message.recipientUsername == searchResult.username){
+                messageFound = true
+                current = message
+            }
+        })
+        setTimeout(() => {
+            if(messageFound === true){
+                //Conversation already exists
+                renderChat(current)
+            }else{
+                const contact = {
+                    conversation: [],
+                    email: searchResult.email,
+                    name: searchResult.name,
+                    senderUsername: userDetails.username,
+                    recipientUsername: searchResult.username,
+                    profileURL: searchResult.profileURL
+                }
+                renderChat(contact)
+            }
+        }, 100)
+    }
     const [chatSearch, setChatSearch] = useState('');
     const [isSearchPeopleShowing, setSearchPeopleShow] = useState(false)
     const [searchResults, setSearchResults] = useState([])
@@ -47,45 +76,26 @@ function Chats() {
     
     const [userDetails, setUserDetails] = useState({})
     const [messages, setMessages] = useState([])
+
+    const [isContactsVisible, setContactsVisibility] = useState(false)
     const [isRenderChatVisible, setRenderChatVisibility] = useState(false)
-    const [currentContact, setCurrentContact] = useState({messages: []})
+    const [currentContact, setCurrentContact] = useState({conversation: []})
 
     const chatAreaRef = useRef();
     const scrollToRef = useRef();
 
     useEffect(() => {
-        axios.post('http://localhost:8080/user/chats', {id: token})
+        axios.post('http://localhost:8080/user/details', {id: token})
             .then(response => {
                 console.log(response)
-                setUserDetails(response.data)
+                setUserDetails(response.data.userDetails)
+                setMessages(response.data.messages)
             })
             .catch(err => {
                 console.error(err);
             })
     }, [])
 
-    useEffect(() => {
-        if(Object.entries(userDetails).length !== 0){
-            userDetails.messages.map((eachMessage) => {
-                if(Object.entries(eachMessage).length === 0){
-
-                }
-                else{
-                    console.log("A message: ", eachMessage);
-                    axios.post('http://localhost:8080/chat/get', {user_id: eachMessage.id})
-                        .then(response => {
-                            console.log(response)
-                            setMessages(prevMessages => [...prevMessages, {name: response.data.name, email: response.data.email, username: response.data.username, avatar: response.data.avatar, messages: eachMessage.messages, id: eachMessage.id}])
-                        })
-                }
-                
-            })
-        }
-    }, [userDetails])
-
-    useEffect(() => {
-        console.log("Current messages: ", messages)
-    }, [messages])
     useEffect(() => {
         if(chatSearch.length > 0){
             axios.post('http://localhost:8080/users/find', {string: chatSearch})
@@ -102,38 +112,37 @@ function Chats() {
 
     function selectChat(contact){
         console.log(contact)
+        console.log(userDetails)
         setRenderChatVisibility(true)
-        axios.post('http://localhost:8080/users/get_chat', {username: contact})
-            .then(res => {
-                console.log(res);
-            })
     }
 
     function sendMessage(){
         console.clear()
         
         var object = {
-            recipient: currentContact.id,
-            sender: userDetails._id,
+            recipient: currentContact.recipientUsername,
+            sender: userDetails.username,
             message: newMessage
         }
-        console.log(messages)
+        
         var messageOBJ = {
             type: "sent",
             body: newMessage,
             timestamp: Date.now()
         }
-        var cm = currentContact.messages
-        cm.push(messageOBJ)
-        setCurrentContact({...currentContact, messages: cm})
+        
+        console.log("Index: ", messages.indexOf(currentContact))
+        var tempConversations = currentContact.conversation
+        
+        tempConversations.push(messageOBJ)
         axios.post('http://localhost:8080/chats/update', object)
+            .then(res => {
+                setCurrentContact({...currentContact, conversation: tempConversations})
+            })
             
             setNewMessage("")
-            console.clear()
             
             setTimeout(() => {
-                var chatArea = document.getElementById("chat-area");
-                var lastMessage = chatArea.lastChild
                 scrollToBottom()
             }, 100)
             
@@ -144,13 +153,25 @@ function Chats() {
             <Sidebar/>
             <div className="dashboard-main">
 
-                <div className="chat-section">                    
-                    <div className="contacts">
+                <div className="chat-section">
+                    <span className={`contact-icon icon-show`}
+                        onClick={() => setContactsVisibility(true)}
+                    >
+                        <i className="far fa-angle-right"></i>
+                    </span>
+                    <span className={`contact-icon close-contacts ${isContactsVisible ? "icon-show" : "icon-hide"}`}
+                        onClick={() => setContactsVisibility(false)}
+                    >
+                        <i className="far fa-angle-left"></i>
+                    </span>
+                    <div className={`contacts ${isContactsVisible ? "contacts-show" : "contacts-hide"}`}>
                         <div className="search-chats">
                             <center>
                                 <input type="text" 
                                     className="search"
                                     placeholder="Search people"
+                                    spellCheck={false}
+                                    autoComplete="off"
                                     value={chatSearch}
                                     onChange={(e) =>{
                                         setChatSearch(e.target.value)
@@ -165,13 +186,14 @@ function Chats() {
                         >
                             {
                                 searchResults.map(search_result => {
+                                    console.clear()
+                                    console.log(search_result)
                                     return(
                                         <div key={search_result.username}
                                             className="search-result"
                                             onClick={() => {
-                                                setCurrentContact(search_result)
-                                                console.log(currentContact)
-                                                selectChat(search_result.username);
+                                                console.log(search_result)
+                                                activatesearchResult(search_result)
                                             }}
                                         >
                                             <img src={search_result.profileURL}
@@ -194,30 +216,30 @@ function Chats() {
                            
                             {
                                 messages.map(message => {
-                                    var messageLength = message.messages.length;
+                                    // console.log(message)
+                                    var messageLength = message.conversation.length;
                                     var lastMessage;
                                     if(messageLength > 0){
-                                        lastMessage = message.messages[messageLength - 1];
+                                        lastMessage = message.conversation[messageLength - 1];
                                     }
                                     var d = new Date(lastMessage.timestamp)
                                     var minutes = d.getMinutes()
                                     var hours = d.getHours()
                                     if(hours < 10){
-                                        hours = `0{${hours}}`
+                                        hours = `0${hours}`
                                     }
                                     if(minutes < 10){
                                         minutes = `0${minutes}`;
                                     }
                                     var timestamp = `${hours}:${minutes}`;
-
                                     return(
                                         <div
-                                            key={message.username}
+                                            key={message.email}
                                             className="contact"
                                             onClick={() => renderChat(message)}
                                         >
                                             <div className="contact-properties">
-                                                <img src={message.avatar}
+                                                <img src={message.profileURL}
                                                     className="contact-image"
                                                 />
                                                 <div className="contact-details">
@@ -239,7 +261,7 @@ function Chats() {
                         </div>
                     </div>
 
-                    <div className={`${isRenderChatVisible ? "render-chat-show" : "render-chat-hide"}`}>
+                    <div className={`${isRenderChatVisible ? "render-chat-show" : "render-chat-hide"} ${isContactsVisible ? "render-chat-small" : "render-chat-full"}`}>
                         {/* <span className="current-contact-name">
                             Dr Braavosi
                         </span> */}
@@ -248,7 +270,7 @@ function Chats() {
                         </span>
                         <div id="chat-area" className="chats-area" ref={chatAreaRef}>
                             {
-                                currentContact.messages.map(message => {
+                                currentContact.conversation.map(message => {
                                     if(Object.keys(message).length > 0){
                                         if(message.type === "received"){
                                             return(

@@ -1,10 +1,21 @@
 .render-chat-show{
-    width: 70vw;
+    /* margin-left: 30vw;
+    width: 70vw; */
     background: rgba(5, 5, 5, 0.32);
     height: 100vh;
     box-sizing: border-box;
     padding: 20px;
     display: block;
+}
+.render-chat-full{
+    animation-name: showFullRenderChat;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
+}
+.render-chat-small{
+    animation-name: showSmallRenderChat;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
 }
 .render-chat-hide{
     display: none;

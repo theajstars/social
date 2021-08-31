@@ -15,6 +15,7 @@ export default function Register() {
         }
     }, [])
     const registerButtonRef = useRef();
+    const errorTextRef = useRef()
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -35,6 +36,8 @@ export default function Register() {
     const [isTermsErrorClass, setTermsErrorClass] = useState(false)
     const [confrimPasswordError, setConfrimPasswordError] = useState(false)
     const [showPasswordWarnings, setShowPasswordWarnings] = useState(false)
+
+    const [showAuthError, setAuthError] = useState(false)
 
     useEffect(() => {
         var alphabetReg = new RegExp("^(?=.*[a-z])(?=.*[A-Z])");
@@ -89,27 +92,40 @@ export default function Register() {
         validateForm().then(errors => {
             
             if(errors.nameError || errors.emailError || errors.userNameError || errors.isTermsAcceptedError){
-                console.clear()
-                console.error(errors)
+                errorTextRef.current.innerHTML = 'There are errors in your form!'
+                setAuthError(true)
                 setIsRegisterButtonDisabled(false)
                 if(errors.isTermsAcceptedError){
-                    console.log("Please accept terms")
                     setTermsErrorClass(true)
                 }else{
                     setTermsErrorClass(false)
                 }
+                setTimeout(() => {
+                    setAuthError(false)
+                }, 2000)
             }else{
+                errorTextRef.current.innerHTML = 'User already exists!'
+                setButtonAnimation(true);
+                setIsRegisterButtonDisabled(true)
+                registerButtonRef.current.innerHTML = 'Registering user... <i class="fal fa-spinner fa-spin"></i'
                 axios.post('http://localhost:8080/user/register', {name: name, email: email, username: userName, password: password})
                     .then(res => {
-                        console.log(res.data)
-                        Cookies.set("ud", res.data);
-                        window.location.href="/chats"
-                    })
-                    .catch(err => {
-                        console.error(err);
+                        if(res.data.error === true){
+                            // User already exists
+                            setAuthError(true)
+                            setButtonAnimation(false);
+                            setIsRegisterButtonDisabled(false)
+                            registerButtonRef.current.innerHTML = 'Continue'
+                            setTimeout(() => {
+                                setAuthError(false)
+                            }, 2000)
+                        }else{
+                            Cookies.set("ud", res.data);
+                            window.location.href="/chats"
+                        }
+                        
                     })
                 setButtonAnimation(true);
-                console.log("Clicked")
                 setIsRegisterButtonDisabled(true)
                 registerButtonRef.current.innerHTML = 'Registering user... <i class="fal fa-spinner fa-spin"></i'
             }
@@ -118,6 +134,14 @@ export default function Register() {
     }
     return (
         <div className="register-container">
+            <div className={`auth-error ${showAuthError ? "auth-error-show" : "auth-error-hide"}`}>
+                <span className="auth-error-icon">
+                    <i className="far fa-exclamation-circle"></i>
+                </span>
+                <p ref={errorTextRef}>
+                    User already exists!
+                </p>
+            </div>
             <div className="bg-dots">
                 <div className="bg-dot bg-dot-1"></div>
                 <div className="bg-dot bg-dot-2"></div>

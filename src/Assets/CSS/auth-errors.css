@@ -1,0 +1,54 @@
+@keyframes showAuthError {
+    0%{
+        top: -60px;
+    }
+    100%{
+        top: 20px;
+    }
+}
+@keyframes hideAuthError {
+    0%{
+        top: 20px;
+        display: flex;
+    }
+    100%{
+        top: -60px;
+        display: none;
+    }
+}
+.auth-error{
+    background-color: rgba(0, 0, 0, 0.507);
+    width: 300px;
+    height: 50px;
+    position: absolute;
+    /* top: -60px; */
+    left: 50%;
+    margin-left: -150px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+.auth-error-show{
+    display: flex;
+    animation-name: showAuthError;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
+}
+.auth-error-hide{
+    animation-name: hideAuthError;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
+}
+.auth-error-icon{
+    font-size: 20px;
+    color: #ff0000;
+}
+.auth-error p{
+    font-size: 16px;
+    margin-left: 5px;
+    color: #ebebeb;
+}

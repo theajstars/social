@@ -1,0 +1,41 @@
+@keyframes showContacts {
+    0%{
+        left: -30vw;
+    }
+    100%{
+        left: 0;
+    }
+}
+@keyframes hideContacts {
+    0%{
+        left: 0;
+    }
+    100%{
+        left: -30vw;
+    }
+}
+@keyframes showFullRenderChat {
+    0%{
+        margin-left: 30vw;
+        width: 70vw;
+        padding-left: 0px;
+    }
+    100%{
+        width: 100vw;
+        margin-left: 0px;
+        padding-left: 150px;
+    }
+}
+@keyframes showSmallRenderChat {
+    0%{
+        width: 100vw;
+        margin-left: 0px;
+        padding-left: 150px;
+    }
+    100%{
+        margin-left: 30vw;
+        width: 70vw;
+        padding-left: 20px;
+    }
+    
+}

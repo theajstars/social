@@ -20,6 +20,7 @@ function Login() {
     const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(false)
     const loginButtonRef = useRef();
 
+    const [showAuthError, setAuthError] = useState(false)
     function validateForm(){
         return new Promise((resolve, reject) => {
             var userError = userName.length <= 4 ? true : false;
@@ -38,8 +39,6 @@ function Login() {
         e.preventDefault()
         validateForm().then(errors => {
             if(errors.userError || errors.passwordError){
-                console.clear()
-                console.error(errors)
                 setIsLoginButtonDisabled(false)
             }else{
                 setButtonAnimation(true)
@@ -47,23 +46,35 @@ function Login() {
                 loginButtonRef.current.innerHTML = 'Signing in.. <i class="fal fa-spinner fa-spin"></i>';
                 axios.post("http://localhost:8080/user/login", {username: userName, password: password})
                 .then(res => {
-                    console.clear();
-                    console.log(res.data)
                     if(res.data.status === true){
                         Cookies.set("ud", res.data.token)
                         window.location.href = '/chats'
+                        setAuthError(false)
+                        
+                    }else{
+                        //Username and/or password is invalid
+                        setAuthError(true)
+                        setButtonAnimation(false)
+                        setIsLoginButtonDisabled(false)
+                        loginButtonRef.current.innerHTML = 'Continue';
+                        setTimeout(() => {
+                            setAuthError(false)
+                        }, 2000)
                     }
-                })
-                .catch(errr => {
-                    console.clear();
-
-                    console.error(errr)
                 })
             }
         })
     }
     return (
         <div className="login-container">
+            <div className={`auth-error ${showAuthError ? "auth-error-show" : "auth-error-hide"}`}>
+                <span className="auth-error-icon">
+                    <i className="far fa-exclamation-circle"></i>
+                </span>
+                <p>
+                    Login details invalid!
+                </p>
+            </div>
             <div className="bg-dots">
                 <div className="bg-dot bg-dot-1"></div>
                 <div className="bg-dot bg-dot-2"></div>
