@@ -1,6 +1,7 @@
 @keyframes show-search-results {
     0%{
-        left: -30vw;
+        left: -100%;
+        /* left: -30vw; */
     }
     100%{
         left: 0;
@@ -11,7 +12,7 @@
         left: 0;
     }
     100%{
-        left: -30vw;
+        left: -100%;
     }
 }
 .search-people{
@@ -20,19 +21,17 @@
     position: absolute;
     background-color: #0E0F35;
     height: 100vh;
-    padding: 20px 0px;
     box-sizing: border-box;
-    width: 30vw;
+    /* width: 30vw; */
+    width: 100%;
     margin-top: 14px;
 }
 .search-people-show{
-    /* left: 0; */
     animation-name: show-search-results;
     animation-duration: 0.7s;
     animation-fill-mode: forwards;
 }
 .search-people-hide{
-    /* left: -30vw; */
     animation-name: hide-search-results;
     animation-duration: 0.7s;
     animation-fill-mode: forwards;

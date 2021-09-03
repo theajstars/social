@@ -19,6 +19,7 @@
 } */
 .close-contacts{
     left: 30vw;
+    z-index: 999999;
 }
 .icon-show{
     display: flex;
@@ -30,7 +31,47 @@
     .open-contacts{
         display: flex;
     }
-    /* .contacts{
-        display: none;
-    } */
+    div.send-message{
+        width: 500px;
+    }
+    div.contacts{
+        width: 370px;
+    }
+    span.close-contacts{
+        left: 370px;
+    }
+    div.contacts-show{
+        animation-name: showContactsSmall;
+        animation-duration: 0.7s;
+        animation-fill-mode: forwards;
+    }
+    div.contacts-hide{
+        animation-name: hideContactsSmall;
+        animation-duration: 0.7s;
+        animation-fill-mode: forwards;
+    }
+    div.render-chat-full{
+        animation-name: showFullRenderChatSmall;
+        animation-duration: 0.7s;
+        animation-fill-mode: forwards;
+    }
+    div.render-chat-small{
+        animation-name: showSmallRenderChatSmall;
+        animation-duration: 0.7s;
+        animation-fill-mode: forwards;
+    }
+}
+@media screen and (max-width: 580px) {
+    div.send-message {
+        width: 350px;
+    }
+}
+@media screen and (max-width: 400px) {
+    div.contacts{
+        width: 290px;
+    }
+    span.close-contacts{
+        left: 290px;
+        margin-top: 20px;
+    }
 }

@@ -14,6 +14,22 @@
         left: -30vw;
     }
 }
+@keyframes showContactsSmall {
+    0%{
+        left: -500px;
+    }
+    100%{
+        left: 0;
+    }
+}
+@keyframes hideContactsSmall {
+    0%{
+        left: 0;
+    }
+    100%{
+        left: -500px;
+    }
+}
 @keyframes showFullRenderChat {
     0%{
         margin-left: 30vw;
@@ -36,6 +52,35 @@
         margin-left: 30vw;
         width: 70vw;
         padding-left: 20px;
+    }
+    
+}
+
+
+@keyframes showFullRenderChatSmall {
+    0%{
+        /* margin-left: 30vw; */
+        width: 100vw;
+        padding-left: 0px;
+    }
+    100%{
+        width: 100vw;
+        margin-left: 0px;
+        /* padding-left: 150px; */
+        padding-left: 50px;
+
+    }
+}
+@keyframes showSmallRenderChatSmall {
+    0%{
+        width: 100vw;
+        margin-left: 0px;
+        /* padding-left: 150px; */
+    }
+    100%{
+        /* margin-left: 30vw; */
+        width: 100vw;
+        padding-left: 50px;
     }
     
 }

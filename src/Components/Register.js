@@ -234,7 +234,7 @@ export default function Register() {
                                     />
                                     }
                             />
-                            I accept the <u>Terms and Conditions</u>
+                            I accept the <u style={{cursor: "pointer"}} onClick={() => {window.open("")}}>Terms and Conditions</u>
                         </div>
                         <button
                             className={`bg-dark text-light form-btn btn-full c_pointer ${isButtonAnimation ? "button-animate" : ""}`}

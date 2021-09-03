@@ -3,6 +3,7 @@ import Sidebar from '../Sidebar'
 import '../../Assets/CSS/Profile.css'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { Link } from 'react-router-dom'
 
 export default function Profile() {
     var profileURLs = [
@@ -32,17 +33,18 @@ export default function Profile() {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
-    const [oldUsername, setOldUsername] = useState('');
     const [profileURL, setProfileURL ] = useState('');
     
-    // const [showBgOverlay, setBgOverlayShow] = useState(true)
     const [showBgOverlay, setBgOverlayShow] = useState("bg-overlay-hide")
     const [updateErrorsDisplay, setUpdateErrorsDisplay] = useState(false)
 
     const [showAvatars, setShowAvatars] = useState(false)
-    const [isUsernameError, setUsernameError] = useState(false)
+    const [profileResponseIcon, setProfileResponseIcon] = useState('')
+    const [profileResponseText, setProfileResponseText] = useState('')
     const [isNameError, setNameError] = useState(false)
+
+    const [isProfileUpdated, setProfileUpdated] = useState(false)
+    const [updateMessage, setUpdateMessage] = useState("")
 
     useEffect(() => {
         axios.post('http://localhost:8080/user/profile', {userToken: userToken})
@@ -50,10 +52,7 @@ export default function Profile() {
                 console.log(res.data)
                 setName(res.data.name)
                 setEmail(res.data.email)
-                setUsername(res.data.username)
-                setOldUsername(res.data.username)
-                setProfileURL(res.data.profileURL)
-                
+                setProfileURL(res.data.profileURL)  
             })
             .catch(err => {
                 console.error(err)
@@ -71,24 +70,29 @@ export default function Profile() {
         e.preventDefault();
         var aliasError = false
     
-        if(username.length >= 4 && validateEmail(email) && name.length > 4){
-            axios.post('http://localhost:8080/user/validate', {username: username, email: email, token: userToken})
+        if(validateEmail(email) && name.length > 4){
+            axios.post('http://localhost:8080/user/validate', {email: email, token: userToken})
             .then(res => {
                 console.clear()
                 console.log(res);
                 aliasError =  res.data.error ? true : false
                 if(res.data.error === false){
+                    setUpdateMessage("Your profile was updated!")
+                    // No errors exists so update user profile
+                    setProfileUpdated(true)
                     axios.post('http://localhost:8080/user/update', 
                         {
                             name: name,
-                            username: username,
-                            oldUsername: oldUsername,
                             email: email,
                             token: userToken,
                             profileURL: profileURL
                         })
                         .then(response => {
                             console.log(response)
+                            setTimeout(() => {
+                                setProfileUpdated(false)
+                            }, 2000)
+
                         })
                         .catch(err => {
                             console.error(err)
@@ -98,13 +102,11 @@ export default function Profile() {
         }else{
             // Some error with form
         }
-        if(username.length < 4 || aliasError || !validateEmail(email)){
+        if(aliasError || !validateEmail(email)){
             setBgOverlayShow("bg-overlay-show");
             setUpdateErrorsDisplay(true)
-            setUsernameError(true);
         }else{
             setBgOverlayShow("bg-overlay-hide");
-            setUsernameError(false);
         }
         if(name.length < 4){
             setBgOverlayShow("bg-overlay-show");
@@ -125,32 +127,26 @@ export default function Profile() {
             }}
         >
             <Sidebar/>
+            <div
+                className={`sent-message ${isProfileUpdated ? "message-sent-show" : "message-sent-hide"}`}
+            >
+                <span>
+                    <i className="far fa-check"></i>
+                </span>
+                <p>
+                    {updateMessage}
+                </p>
+            </div>
             <div className={`${showBgOverlay}`}></div>
-            {/* <div className={`${showBgOverlay ? "bg-overlay-show" : "bg-overlay-hide"}`}></div> */}
-            <div className={`${updateErrorsDisplay ? "update-errors-show" : "update-errors-hide"}`}>
-                <div
-                    className={`${isUsernameError ? "update-error-show" : "update-error-hide"}`}
-                >
-                    <span className="error-icon">
-                        <i className="far fa-exclamation-circle"></i>
-                    </span>
-                    <p>
-                        Email/Username already exists or is invalid!
-                    </p>
-                </div>
-                <div
-                    className={`${isNameError ? "update-error-show" : "update-error-hide"}`}
-                >
-                    <span className="error-icon">
-                        <i className="far fa-exclamation-circle"></i>
-                    </span>
-                    <p>
-                        Please enter your full name!
-                    </p>
-                </div>
+            <div className="profile-response">
+                <span className="response-icon">{profileResponseIcon}</span>
+                <p className="response-text">{profileResponseText}</p>
             </div>
             <div className="profile-main">
                 <div className="profile-left">
+                    <Link to="/chats" className="back-to-chats">
+                        <i className="far fa-angle-left"></i>&nbsp;Chats
+                    </Link>
                     <img src={profileURL}
                         alt="profileAva"
                         className="profile-avatar"
@@ -160,9 +156,6 @@ export default function Profile() {
                     />
                     <span className="profile-name">
                         {name}
-                    </span>
-                    <span className="profile-username">
-                        @{username}
                     </span>
                 </div>
                 <div className="profile-right">
@@ -189,18 +182,7 @@ export default function Profile() {
                                 />
                             </div>
                         </div>
-                        <div className="edit-profile-row">
-                            <div className="edit-profile-element">
-                                <span className="label">Username</span>
-                                <input type="text"
-                                    className="edit-profile-text"
-                                    autoComplete="new-username"
-                                    spellCheck="false"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
-                                />
-                            </div>
-                        </div>
+                        <br />
                         <button type="submit"
                             className="c_pointer bg-dark text-light form-btn update-btn"
                             // disabled={true}

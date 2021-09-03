@@ -19,9 +19,6 @@ function Sidebar() {
                     <Link to="/profile" className="user-link">
                         Profile
                     </Link>
-                    <Link to="/settings" className="user-link">
-                        Settings
-                    </Link>
                     <Link to="/contact" className="user-link">
                         Contact developer
                     </Link>

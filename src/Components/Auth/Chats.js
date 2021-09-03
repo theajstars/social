@@ -13,9 +13,9 @@ function Chats() {
         });
     }
     function renderChat(current){
-        console.log(currentContact)
         setCurrentContact(current)
         setRenderChatVisibility(true)
+        setContactsVisibility(false)
         setTimeout(() => {
             scrollToBottom();
         }, 500)
@@ -77,12 +77,11 @@ function Chats() {
     const [userDetails, setUserDetails] = useState({})
     const [messages, setMessages] = useState([])
 
-    const [isContactsVisible, setContactsVisibility] = useState(false)
+    const [isContactsVisible, setContactsVisibility] = useState(true)
     const [isRenderChatVisible, setRenderChatVisibility] = useState(false)
     const [currentContact, setCurrentContact] = useState({conversation: []})
 
     const chatAreaRef = useRef();
-    const scrollToRef = useRef();
 
     useEffect(() => {
         axios.post('http://localhost:8080/user/details', {id: token})
@@ -90,12 +89,18 @@ function Chats() {
                 console.log(response)
                 setUserDetails(response.data.userDetails)
                 setMessages(response.data.messages)
+                
             })
             .catch(err => {
                 console.error(err);
             })
-    }, [])
 
+            
+            
+    }, [])
+    
+    
+        
     useEffect(() => {
         if(chatSearch.length > 0){
             axios.post('http://localhost:8080/users/find', {string: chatSearch})
@@ -110,14 +115,22 @@ function Chats() {
         
     }, [chatSearch])
 
-    function selectChat(contact){
-        console.log(contact)
-        console.log(userDetails)
-        setRenderChatVisibility(true)
-    }
 
     function sendMessage(){
         console.clear()
+        console.log("Current Contact: ", currentContact)
+        console.log("Messages: ", messages);
+        var found = false;
+        messages.map(message => {
+            console.log(message.recipientUsername)
+            if(message.recipientUsername == currentContact.recipientUsername){
+                console.log("contact found at: ", messages.indexOf(message))
+                found = true
+            }
+        })
+        if(found === false){
+            setMessages([...messages, currentContact]);
+        }
         
         var object = {
             recipient: currentContact.recipientUsername,
@@ -131,7 +144,7 @@ function Chats() {
             timestamp: Date.now()
         }
         
-        console.log("Index: ", messages.indexOf(currentContact))
+        // console.log("Index: ", messages.indexOf(currentContact))
         var tempConversations = currentContact.conversation
         
         tempConversations.push(messageOBJ)
@@ -157,12 +170,12 @@ function Chats() {
                     <span className={`contact-icon icon-show`}
                         onClick={() => setContactsVisibility(true)}
                     >
-                        <i className="far fa-angle-right"></i>
+                        <i className="fad fa-users"></i>
                     </span>
                     <span className={`contact-icon close-contacts ${isContactsVisible ? "icon-show" : "icon-hide"}`}
                         onClick={() => setContactsVisibility(false)}
                     >
-                        <i className="far fa-angle-left"></i>
+                        <i className="fal fa-users"></i>
                     </span>
                     <div className={`contacts ${isContactsVisible ? "contacts-show" : "contacts-hide"}`}>
                         <div className="search-chats">
@@ -247,7 +260,7 @@ function Chats() {
                                                         {message.name}
                                                     </span>
                                                     <span className="message">
-                                                        {lastMessage.body}
+                                                        {lastMessage.body.length > 30 ? lastMessage.body.substring(0, 30) + "..." : lastMessage.body}
                                                     </span>
                                                 </div>
                                             </div>

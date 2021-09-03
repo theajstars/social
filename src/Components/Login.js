@@ -1,7 +1,7 @@
 import { Typography, FormControlLabel, Checkbox } from '@material-ui/core'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import React, { useState, useEffect, useRef, useContext } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 function Login() {
@@ -47,7 +47,8 @@ function Login() {
                 axios.post("http://localhost:8080/user/login", {username: userName, password: password})
                 .then(res => {
                     if(res.data.status === true){
-                        Cookies.set("ud", res.data.token)
+                        
+                        Cookies.set("ud", res.data.token, {expires : isRemember === true ? 30 : 1})
                         window.location.href = '/chats'
                         setAuthError(false)
                         

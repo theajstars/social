@@ -7,6 +7,9 @@ body{
   background: linear-gradient(180deg, #070C36 0%, #1F1D5E 100%);
   background-size: 400% 400%;
 }
+a{
+  text-decoration: none;
+}
 .text-light{
   font-family: 'Jost', sans-serif !important;
   color: #F3F3F3;
@@ -16,4 +19,83 @@ body{
 }
 .c_pointer{
   cursor: pointer;
+}
+.back-to-chats{
+  background-color: #181857;
+  color: #e2dfdf;
+  padding: 5px 25px;
+  border-radius: 5px;
+  font-size: 19px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+  transition: 0.12s;
+}
+.back-to-chats:hover{
+  background-color: #11113f;
+}
+.back-to-chats i{
+  font-size: 21px;
+}
+.sent-message{
+  display: flex;
+  position: absolute;
+  opacity: 0;
+  left: 50%;
+  margin-left: -135px;
+  width: 270px;
+  background-color: #FCFCFC;
+  border-radius: 7px;
+  height: 50px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.sent-message span{
+  background-color: rgb(32, 119, 32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #FCFCFC;
+  margin-right: 5px;
+}
+.sent-message p{
+  font-size: 17px;
+}
+
+@keyframes showMessageSent {
+  0%{
+      top: -50px;
+      opacity: 0;
+  }
+  100%{
+      top: 0;
+      opacity: 1;
+  }
+}
+@keyframes hideMessageSent {
+  0%{
+      top: 0;
+      opacity: 0;
+  }
+  100%{
+      top: -50px;
+      opacity: 0;
+  }
+}
+.message-sent-show{
+  animation-name: showMessageSent;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+}
+
+.message-sent-hide{
+  animation-name: hideMessageSent;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
 }

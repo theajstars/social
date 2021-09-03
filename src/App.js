@@ -2,8 +2,8 @@ import Cookies from 'js-cookie'
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import './Assets/CSS/all.css'
-import Login from './Components/Login'
-import Register from './Components/Register'
+import './Assets/CSS/Dashboard.css'
+
 
 export function logoutUser(){
   Cookies.remove("ud")
