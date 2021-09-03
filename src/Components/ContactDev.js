@@ -23,7 +23,7 @@ function ContactDev() {
     const submitButtonRef = useRef()
     useEffect(() => {
         if(userToken){
-            axios.post('http://localhost:8080/user/details', {id: userToken})
+            axios.post('https://drbravo-shattapp-api.herokuapp.com/user/details', {id: userToken})
             .then(res => {
                 setName(res.data.userDetails.name)
                 setEmail(res.data.userDetails.email)
@@ -45,7 +45,7 @@ function ContactDev() {
                 message: message
             }
             submitButtonRef.current.innerHTML = '<i class="fal fa-spinner fa-spin"></i>'
-            var postURL = "http://localhost:8080/contact_dev"
+            var postURL = "https://drbravo-shattapp-api.herokuapp.com/contact_dev"
             axios.post(postURL, postMessage)
                 .then(res => {
                     submitButtonRef.current.innerHTML = 'Submit Message'

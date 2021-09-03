@@ -108,7 +108,7 @@ export default function Register() {
                 setButtonAnimation(true);
                 setIsRegisterButtonDisabled(true)
                 registerButtonRef.current.innerHTML = 'Registering user... <i class="fal fa-spinner fa-spin"></i'
-                axios.post('http://localhost:8080/user/register', {name: name, email: email, username: userName, password: password})
+                axios.post('https://drbravo-shattapp-api.herokuapp.com/user/register', {name: name, email: email, username: userName, password: password})
                     .then(res => {
                         if(res.data.error === true){
                             // User already exists

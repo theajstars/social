@@ -84,7 +84,7 @@ function Chats() {
     const chatAreaRef = useRef();
 
     useEffect(() => {
-        axios.post('http://localhost:8080/user/details', {id: token})
+        axios.post('https://drbravo-shattapp-api.herokuapp.com/user/details', {id: token})
             .then(response => {
                 console.log(response)
                 setUserDetails(response.data.userDetails)
@@ -103,7 +103,7 @@ function Chats() {
         
     useEffect(() => {
         if(chatSearch.length > 0){
-            axios.post('http://localhost:8080/users/find', {string: chatSearch})
+            axios.post('https://drbravo-shattapp-api.herokuapp.com/users/find', {string: chatSearch})
             .then(res => {
                 console.clear()
                 console.log(res)
@@ -148,7 +148,7 @@ function Chats() {
         var tempConversations = currentContact.conversation
         
         tempConversations.push(messageOBJ)
-        axios.post('http://localhost:8080/chats/update', object)
+        axios.post('https://drbravo-shattapp-api.herokuapp.com/chats/update', object)
             .then(res => {
                 setCurrentContact({...currentContact, conversation: tempConversations})
             })

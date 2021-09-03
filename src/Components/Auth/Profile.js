@@ -47,7 +47,7 @@ export default function Profile() {
     const [updateMessage, setUpdateMessage] = useState("")
 
     useEffect(() => {
-        axios.post('http://localhost:8080/user/profile', {userToken: userToken})
+        axios.post('https://drbravo-shattapp-api.herokuapp.com/user/profile', {userToken: userToken})
             .then(res => {
                 console.log(res.data)
                 setName(res.data.name)
@@ -71,7 +71,7 @@ export default function Profile() {
         var aliasError = false
     
         if(validateEmail(email) && name.length > 4){
-            axios.post('http://localhost:8080/user/validate', {email: email, token: userToken})
+            axios.post('https://drbravo-shattapp-api.herokuapp.com/user/validate', {email: email, token: userToken})
             .then(res => {
                 console.clear()
                 console.log(res);
@@ -80,7 +80,7 @@ export default function Profile() {
                     setUpdateMessage("Your profile was updated!")
                     // No errors exists so update user profile
                     setProfileUpdated(true)
-                    axios.post('http://localhost:8080/user/update', 
+                    axios.post('https://drbravo-shattapp-api.herokuapp.com/user/update', 
                         {
                             name: name,
                             email: email,

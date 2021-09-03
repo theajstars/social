@@ -44,7 +44,7 @@ function Login() {
                 setButtonAnimation(true)
                 setIsLoginButtonDisabled(true)
                 loginButtonRef.current.innerHTML = 'Signing in.. <i class="fal fa-spinner fa-spin"></i>';
-                axios.post("http://localhost:8080/user/login", {username: userName, password: password})
+                axios.post("https://drbravo-shattapp-api.herokuapp.com/user/login", {username: userName, password: password})
                 .then(res => {
                     if(res.data.status === true){
                         
