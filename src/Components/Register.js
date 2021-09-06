@@ -7,6 +7,7 @@ import '../Assets/CSS/Register.css'
 
 
 
+
 export default function Register() {
     useEffect(() => {
         var token = Cookies.get("ud")
@@ -234,7 +235,8 @@ export default function Register() {
                                     />
                                     }
                             />
-                            I accept the <u style={{cursor: "pointer"}} onClick={() => {window.open("")}}>Terms and Conditions</u>
+
+                        I accept the <u style={{"cursor": "pointer"}} onClick={() => window.open("https://docs.google.com/document/d/1n6rwOK8pIA5Of3c4byg0qwL4fyWn4mMCYqJSMs3_wMQ/edit#heading=h.vthd5kq35yvl")}>Terms and Conditions</u>
                         </div>
                         <button
                             className={`bg-dark text-light form-btn btn-full c_pointer ${isButtonAnimation ? "button-animate" : ""}`}
