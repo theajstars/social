@@ -49,7 +49,6 @@ function ContactDev() {
             axios.post(postURL, postMessage)
                 .then(res => {
                     submitButtonRef.current.innerHTML = 'Submit Message'
-                    console.clear()
                     if(res.data.sent === true){
                         // If message sent successfully
                         setMessageSentVisibility(true)

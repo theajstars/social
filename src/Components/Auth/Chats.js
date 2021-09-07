@@ -38,9 +38,6 @@ function Chats() {
     }
     
     function activatesearchResult(searchResult){
-        console.clear();
-        console.log(searchResult)
-        console.log(messages);
         var messageFound = false
         var current = {}
         messages.map(message => {
@@ -86,17 +83,10 @@ function Chats() {
     useEffect(() => {
         axios.post('https://drbravo-shattapp-api.herokuapp.com/user/details', {id: token})
             .then(response => {
-                console.log(response)
                 setUserDetails(response.data.userDetails)
                 setMessages(response.data.messages)
                 
             })
-            .catch(err => {
-                console.error(err);
-            })
-
-            
-            
     }, [])
     
     
@@ -105,8 +95,6 @@ function Chats() {
         if(chatSearch.length > 0){
             axios.post('https://drbravo-shattapp-api.herokuapp.com/users/find', {string: chatSearch})
             .then(res => {
-                console.clear()
-                console.log(res)
                 setSearchResults(res.data)
             })
         }else{
@@ -117,14 +105,9 @@ function Chats() {
 
 
     function sendMessage(){
-        console.clear()
-        console.log("Current Contact: ", currentContact)
-        console.log("Messages: ", messages);
         var found = false;
         messages.map(message => {
-            console.log(message.recipientUsername)
             if(message.recipientUsername == currentContact.recipientUsername){
-                console.log("contact found at: ", messages.indexOf(message))
                 found = true
             }
         })
@@ -143,8 +126,7 @@ function Chats() {
             body: newMessage,
             timestamp: Date.now()
         }
-        
-        // console.log("Index: ", messages.indexOf(currentContact))
+    
         var tempConversations = currentContact.conversation
         
         tempConversations.push(messageOBJ)
@@ -199,13 +181,10 @@ function Chats() {
                         >
                             {
                                 searchResults.map(search_result => {
-                                    console.clear()
-                                    console.log(search_result)
                                     return(
                                         <div key={search_result.username}
                                             className="search-result"
                                             onClick={() => {
-                                                console.log(search_result)
                                                 activatesearchResult(search_result)
                                             }}
                                         >
@@ -229,7 +208,6 @@ function Chats() {
                            
                             {
                                 messages.map(message => {
-                                    // console.log(message)
                                     var messageLength = message.conversation.length;
                                     var lastMessage;
                                     if(messageLength > 0){

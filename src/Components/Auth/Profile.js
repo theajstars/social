@@ -49,13 +49,9 @@ export default function Profile() {
     useEffect(() => {
         axios.post('https://drbravo-shattapp-api.herokuapp.com/user/profile', {userToken: userToken})
             .then(res => {
-                console.log(res.data)
                 setName(res.data.name)
                 setEmail(res.data.email)
                 setProfileURL(res.data.profileURL)  
-            })
-            .catch(err => {
-                console.error(err)
             })
     }, [])
     function selectAvatar(e){
@@ -73,8 +69,6 @@ export default function Profile() {
         if(validateEmail(email) && name.length > 4){
             axios.post('https://drbravo-shattapp-api.herokuapp.com/user/validate', {email: email, token: userToken})
             .then(res => {
-                console.clear()
-                console.log(res);
                 aliasError =  res.data.error ? true : false
                 if(res.data.error === false){
                     setUpdateMessage("Your profile was updated!")
@@ -88,14 +82,12 @@ export default function Profile() {
                             profileURL: profileURL
                         })
                         .then(response => {
-                            console.log(response)
                             setTimeout(() => {
                                 setProfileUpdated(false)
                             }, 2000)
 
                         })
                         .catch(err => {
-                            console.error(err)
                         })
                 }
             })
